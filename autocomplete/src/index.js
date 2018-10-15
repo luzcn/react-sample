@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import './index.css';
+import './index.css';
 
 
 
@@ -28,9 +28,13 @@ class DropdownExample extends React.Component {
       });
   };
   onChange = (event) => {
-    this.setState({
-      suggestions: this.getProjects(event.target.value)
-    });
+    const value = event.target.value;
+    if (value.indexOf("#") != -1) {
+
+      this.setState({
+        suggestions: this.getProjects(event.target.value.substring(value.indexOf("#") + 1))
+      });
+    }
   };
 
 
@@ -44,7 +48,7 @@ class DropdownExample extends React.Component {
       <div>
         <input type="text" onChange={this.onChange.bind(this)} />
         <div>
-          <ul>{listItems}</ul>
+          <ul class="suggestions">{listItems}</ul>
         </div>
       </div>
     );
